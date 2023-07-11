@@ -43,9 +43,9 @@ pipeline {
           when {
             branch 'master'
           }
-              environment {
-                CANARY_REPLICAS = 1
-              }
+          environment {
+            CANARY_REPLICAS = 1
+          }
           steps {
             kubernetesDeploy(
               kubeconfigId: 'kubeconfig',
@@ -57,6 +57,9 @@ pipeline {
         stage('DeployToProduction') {
             when {
                 branch 'master'
+            }
+            environment {
+              CANARY_REPLICAS = 0
             }
             steps {
                 input 'Deploy to Production?'
